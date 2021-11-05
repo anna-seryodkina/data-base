@@ -428,7 +428,7 @@ def search1(n):
     cur = con.cursor()
 
     cur.execute("select * from subjects cross join teachers where subjects.teacher_id = teachers.id and department > (%s)", (str(n),))
- 
+
     con.commit()
 
     cur.close()
