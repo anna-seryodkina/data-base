@@ -346,17 +346,118 @@ def update_teacher(id, name, department):
 
 
 
-def generate_faculty():
-    print()
+def generate_faculty(n):
+    con = psycopg2.connect(host = "localhost", database = "myDB",
+                user = "postgres", password = "postgresServer")
+
+    cur = con.cursor()
+    cur.execute(
+        "INSERT into faculties (name, number)\
+        SELECT chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int),\
+                trunc(random()*1000 - 1)::int\
+        FROM generate_series(1, (%s)) s(i);", (str(n),) )
+ 
+    con.commit()
+
+    cur.close()
+    con.close()
 
 
-def generate_student():
-    print()
+def generate_student(n):
+    con = psycopg2.connect(host = "localhost", database = "myDB",
+                user = "postgres", password = "postgresServer")
+
+    cur = con.cursor()
+    cur.execute(
+        "INSERT into students (id, first_name, last_name)\
+        SELECT trunc(random()*1000)::int,\
+                chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int),\
+                substr(md5(random()::text), 1, 8)\
+        FROM generate_series(1, (%s)) s(i);", (str(n),) )
+ 
+    con.commit()
+
+    cur.close()
+    con.close()
 
 
-def generate_subject():
-    print()
+def generate_subject(n):
+    con = psycopg2.connect(host = "localhost", database = "myDB",
+                user = "postgres", password = "postgresServer")
+
+    cur = con.cursor()
+    cur.execute(
+        "INSERT into subjects (name, lecture_hall_number, time, faculty_number, teacher_id)\
+        SELECT substr(md5(random()::text), 1, 8),\
+                trunc(random()*1000)::int,\
+                substr(md5(random()::text), 1, 8),\
+                trunc(random()*1000)::int,\
+                trunc(random()*1000)::int
+        FROM generate_series(1, (%s)) s(i);", (str(n),) )
+ 
+    con.commit()
+
+    cur.close()
+    con.close()
 
 
-def generate_teacher():
-    print()
+def generate_teacher(n):
+    con = psycopg2.connect(host = "localhost", database = "myDB",
+                user = "postgres", password = "postgresServer")
+
+    cur = con.cursor()
+    cur.execute(
+        "INSERT into teachers (id, name, department)\
+        SELECT trunc(random()*1000)::int,\
+                chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int) || chr(trunc(65+random()*25)::int),\
+                substr(md5(random()::text), 1, 8)\
+        FROM generate_series(1, (%s)) s(i);", (str(n),) )
+ 
+    con.commit()
+
+    cur.close()
+    con.close()
+
+
+
+
+def search1(n):
+    con = psycopg2.connect(host = "localhost", database = "myDB",
+                user = "postgres", password = "postgresServer")
+
+    cur = con.cursor()
+
+    cur.execute("select * from subjects cross join teachers where subjects.teacher_id = teachers.id and department > (%s)", (str(n),))
+ 
+    con.commit()
+
+    cur.close()
+    con.close()
+
+
+def search2(n):
+    con = psycopg2.connect(host = "localhost", database = "myDB",
+                user = "postgres", password = "postgresServer")
+
+    cur = con.cursor()
+
+    cur.execute("select * from subjects cross join faculties where subjects.faculty_number = faculties.number and lecture_hall_number =  (%s)", (str(n),))
+ 
+    con.commit()
+
+    cur.close()
+    con.close()
+
+
+def search3():
+    con = psycopg2.connect(host = "localhost", database = "myDB",
+                user = "postgres", password = "postgresServer")
+
+    cur = con.cursor()
+
+    cur.execute("select subjects.name, lecture_hall_number, time, teachers.name, department from subjects cross join teachers where subjects.teacher_id = teachers.id")
+ 
+    con.commit()
+
+    cur.close()
+    con.close()

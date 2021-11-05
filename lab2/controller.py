@@ -230,13 +230,39 @@ def generate():
     amount = get_amount()
 
     if entity == "faculty":
-        print()
+        model.generate_faculty(amount)
 
     elif entity == "student":
-        print()
+        model.generate_student(amount)
 
     elif entity == "subject":
-        print()
+        model.generate_subject(amount)
 
     elif entity == "teacher":
-        print()
+        model.generate_teacher(amount)
+
+
+
+def search():
+    n = input("what search? [1/2/3]")
+
+    if n == "1":
+        try:
+            n = int(input("enter number. department bigger than: "))
+        except:
+            raise InputException(">> incorrect input.")
+
+        model.search1(n)
+
+    elif n == "2":
+        try:
+            n = int(input("enter lecture hall number: "))
+        except:
+            raise InputException(">> incorrect input.")
+
+        model.search2(n)
+
+    elif n == "3":
+        model.search3()
+    else:
+        raise InputException(">> incorrect input.")

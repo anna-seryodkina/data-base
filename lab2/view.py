@@ -47,7 +47,14 @@ while(True):
             print(">> error happened.")
 
     elif command == "search":
-        print()
+        try:
+            controller.search()
+        except controller.EntityException as inst:
+            print(inst.message)
+        except controller.InputException as inst:
+            print(inst.message)
+        except:
+            print(">> error happened.")
 
     elif command == "exit" or command == "":
         break
