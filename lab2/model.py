@@ -392,7 +392,7 @@ def generate_subject(n):
                 trunc(random()*1000)::int,\
                 substr(md5(random()::text), 1, 8),\
                 trunc(random()*1000)::int,\
-                trunc(random()*1000)::int
+                trunc(random()*1000)::int\
         FROM generate_series(1, (%s)) s(i);", (str(n),) )
  
     con.commit()
