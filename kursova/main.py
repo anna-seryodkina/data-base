@@ -30,15 +30,14 @@ while True:
 
         elif inp.startswith('popular-pages'):
             sitename = get_site(inp)
-            fname = analysis.make_popular_diagram(sitename)
-            print(f'diagram saved to {fname}.png')
+            analysis.make_popular_diagram(sitename)
 
         elif inp == '' or inp == 'exit':
             break
         else:
             print('>> oops. wrong command.')
     except:
-        print('>> incorrect input.')
+        print('>> oops. something went wrong.')
 
     inp = input('enter command: ')
 

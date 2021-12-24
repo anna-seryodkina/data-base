@@ -1,16 +1,15 @@
 import datetime
-
 import psycopg2
-
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer, Date
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql import exists, select
+from sqlalchemy.sql import exists
 from sqlalchemy import ForeignKey
 
 
 Base = declarative_base()
+
 
 class WebSite(Base):
     __tablename__ = "websites"

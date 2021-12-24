@@ -38,46 +38,54 @@ def get_dates(filename):
 
 
 def add_websites(numbers, words):
+    counter = 0
     for i in numbers:
-        if data_backend.website_exists(i):
+        counter = counter + 1
+        if data_backend.website_exists(counter):
             continue
         w = random.choice(words) + str(i)
-        data_backend.add_website(i, w)
+        data_backend.add_website(counter, w)
 
 
 def add_pages(numbers, words):
+    counter = 0
     for i in numbers:
-        if data_backend.page_exists(i):
+        counter = counter + 1
+        if data_backend.page_exists(counter):
             continue
         name = random.choice(words) + str(i)
         w_id = random.choice(numbers)
         while not data_backend.website_exists(w_id):
             w_id = random.choice(numbers)
-        data_backend.add_page(i, name, w_id)
+        data_backend.add_page(counter, name, w_id)
 
 
 def add_webs_visits(numbers, dates):
+    counter = 0
     for i in numbers:
-        if data_backend.websitevisit_exists(i):
+        counter = counter + 1
+        if data_backend.websitevisit_exists(counter):
             continue
         date = random.choice(dates)
         visits = random.choice(numbers)
         w_id = random.choice(numbers)
         while not data_backend.website_exists(w_id):
             w_id = random.choice(numbers)
-        data_backend.add_websitevisit(i, date, visits, w_id)
+        data_backend.add_websitevisit(counter, date, visits, w_id)
 
 
 def add_pages_visits(numbers, dates):
+    counter = 0
     for i in numbers:
-        if data_backend.pagevisit_exists(i):
+        counter = counter + 1
+        if data_backend.pagevisit_exists(counter):
             continue
         date = random.choice(dates)
         visits = random.choice(numbers)
         p_id = random.choice(numbers)
         while not data_backend.page_exists(p_id):
             p_id = random.choice(numbers)
-        data_backend.add_pagevisit(i, date, visits, p_id)
+        data_backend.add_pagevisit(counter, date, visits, p_id)
 
 
 

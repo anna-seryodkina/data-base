@@ -4,8 +4,8 @@ import datetime
 
 def generate_num(filename):
     l = []
-    for i in range(100000):
-        l.append(random.randint(0, 700))
+    for i in range(1000):
+        l.append(random.randint(1, 1000))
 
     f = open(filename, 'w')
 

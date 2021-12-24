@@ -1,6 +1,4 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import data_backend
 
 
@@ -18,15 +16,18 @@ def make_graph():
     x = []
     y = []
     for d in gdata:
+        if len(x) == 8:
+            break
         y.append(d[1])
         x.append(d[0])
 
     x.sort()
     y.sort()
 
-    plt.figure(figsize=(14, 8))
+    plt.figure(figsize=(18, 10))
     plt.bar(x, y, align='center', width=0.8)
     plt.ylabel('visits', fontsize=17)
+    plt.xlabel('website names', fontsize=17)
     plt.title('websites visits over the last week', fontsize=18)
     fname = 'graph'
     plt.savefig(fname)
@@ -35,7 +36,9 @@ def make_graph():
 
 def make_popular_diagram(sitename):
     gdata = data_backend.get_data_for_diagram(sitename)
-    print(gdata)
+    if len(gdata) == 0:
+        print('not enough data for the diagram.')
+        return
 
     p_v = dict()
     visits = []
@@ -58,5 +61,5 @@ def make_popular_diagram(sitename):
 
     fname = 'diagram'
     plt.savefig(fname)
-    return fname
+    print(f'diagram saved to {fname}.png')
 
